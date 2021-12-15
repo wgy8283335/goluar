@@ -1,20 +1,6 @@
 /*
-	Licensed to the Apache Software Foundation (ASF) under one or more
-	contributor license agreements.  See the NOTICE file distributed with
-	this work for additional information regarding copyright ownership.
-	The ASF licenses this file to You under the Apache License, Version 2.0
-	(the "License"); you may not use this file except in compliance with
-	the License.  You may obtain a copy of the License at
-
-	   http://www.apache.org/licenses/LICENSE-2.0
-
- 	Unless required by applicable law or agreed to in writing, software
- 	distributed under the License is distributed on an "AS IS" BASIS,
- 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- 	See the License for the specific language governing permissions and
- 	limitations under the License.
+	See Copyright Notice at LICENSE file
 */
-
 package compiler
 
 /*
@@ -46,6 +32,18 @@ const (
 	LEX_KW_UNTIL                   // until
 	LEX_KW_WHILE                   // while
 	LEX_NUMBER                     // number literal
+	LEX_SEP_SEMI                   // ;
+	LEX_SEP_COMMA                  // ,
+	LEX_SEP_DOT                    // .
+	LEX_SEP_COLON                  // :
+	LEX_SEP_LPAREN                 // (
+	LEX_SEP_RPAREN                 // )
+	LEX_SEP_LBRACK                 // [
+	LEX_SEP_RBRACK                 // ]
+	LEX_SEP_LCURLY                 // {
+	LEX_SEP_RCURLY                 // }
+	LEX_STRING                     // string literal
+	LEX_VARARG                     // ...
 	LEX_OP_ASSIGN                  // =
 	LEX_OP_MINUS                   // - (sub or unm)
 	LEX_OP_ADD                     // +
@@ -66,16 +64,4 @@ const (
 	LEX_OP_NOT                     // not
 	LEX_OP_UNM      = LEX_OP_MINUS // unary minus
 	LEX_OP_SUB      = LEX_OP_MINUS
-	LEX_SEP_SEMI    // ;
-	LEX_SEP_COMMA   // ,
-	LEX_SEP_DOT     // .
-	LEX_SEP_COLON   // :
-	LEX_SEP_LPAREN  // (
-	LEX_SEP_RPAREN  // )
-	LEX_SEP_LBRACK  // [
-	LEX_SEP_RBRACK  // ]
-	LEX_SEP_LCURLY  // {
-	LEX_SEP_RCURLY  // }
-	LEX_STRING      // string literal
-	LEX_VARARG      // ...
 )

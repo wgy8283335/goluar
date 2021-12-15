@@ -12,8 +12,8 @@ func TestBinaryChunk(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-
 	proto := LoadBinaryChunk(data)
+	println("--------------------TestBinaryChunk------------------")
 	list(proto)
 }
 

@@ -181,6 +181,12 @@ type loader struct {
 	data []byte // store binary chunk
 }
 
+type LocVar struct {
+	VarName string
+	StartPC uint32
+	EndPC   uint32
+}
+
 /*
 	+-----------------------+ ---
 	|	signature			|  |
