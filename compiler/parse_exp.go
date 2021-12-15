@@ -1,5 +1,5 @@
 /*
-	See Copyright Notice at LICENSE file
+	See Copyright Notice at LICENSE file.
 */
 package compiler
 

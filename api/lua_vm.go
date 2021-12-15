@@ -1,7 +1,7 @@
 package api
 
 type LuaVM interface {
-	//LuaState
+	LuaState
 	PC() int
 	AddPC(n int)
 	Fetch() uint32

@@ -1,6 +1,9 @@
 package vm
 
-import . "goluar/common"
+import (
+	"goluar/api"
+	. "goluar/common"
+)
 
 /*
  31       22       13       5    0
