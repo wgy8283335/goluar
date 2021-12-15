@@ -1,0 +1,1 @@
+io.write("Hello world, from 5.1 !\n")
