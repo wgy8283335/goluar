@@ -428,11 +428,11 @@ func (self *funcInfo) emitAsBx(line, opcode, a, b int) {
 		Only 'EXTRAARG' command use this kind of format. 'EXTRAARG' is used as extended command.
 		Record the command in insts, record the line number in lineNums.
 */
-func (self *funcInfo) emitAx(line, opcode, ax int) {
-	i := ax<<6 | opcode
-	self.insts = append(self.insts, uint32(i))
-	self.lineNums = append(self.lineNums, uint32(line))
-}
+// func (self *funcInfo) emitAx(line, opcode, ax int) {
+// 	i := ax<<6 | opcode
+// 	self.insts = append(self.insts, uint32(i))
+// 	self.lineNums = append(self.lineNums, uint32(line))
+// }
 
 /*
 	@description
@@ -464,12 +464,8 @@ func (self *funcInfo) emitLoadBool(line, a, b, c int) {
 // r[a] = kst[bx]
 func (self *funcInfo) emitLoadK(line, a int, k interface{}) {
 	idx := self.indexOfConstant(k)
-	if idx < (1 << 18) {
-		self.emitABx(line, OP_LOADK, a, idx)
-	} else {
-		self.emitABx(line, OP_LOADKX, a, 0)
-		self.emitAx(line, OP_EXTRAARG, idx)
-	}
+	//todo: compare with lcode.c
+	self.emitABx(line, OP_LOADK, a, idx)
 }
 
 // r[a], r[a+1], ..., r[a+b-2] = vararg

@@ -42,10 +42,6 @@ func (self Instruction) AsBx() (a, sbx int) {
 	return a, bx - MAXARG_sBx
 }
 
-func (self Instruction) Ax() int {
-	return int(self >> 6)
-}
-
 func (self Instruction) OpName() string {
 	return opcodes[self.Opcode()].name
 }

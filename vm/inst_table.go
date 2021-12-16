@@ -71,12 +71,11 @@ func setTable(i Instruction, vm LuaVM) {
 func setList(i Instruction, vm LuaVM) {
 	a, b, c := i.ABC()
 	a += 1 // register index should add 1 to transfer to stack index， stack index from 1, register index from 0.
-	//If C >0, the batch number is stored in C as (batch number)+1. Otherwise, the batch number is stored in Ax in EXTRAARG command.
-	if c > 0 {
-		c = c - 1
-	} else {
-		c = Instruction(vm.Fetch()).Ax()
+	//If c > 0, the batch number is stored in C as (batch number)+1. if c = 0 , he batch number is stored in next command.
+	if c == 0 {
+		c = int(vm.Fetch()) //
 	}
+	c = c - 1
 	//Check whether b is zero.
 	bIsZero := b == 0
 	if bIsZero {

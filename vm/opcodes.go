@@ -19,8 +19,6 @@ var opcodes = []opcode{
 	/*     T  A    B       C     mode         name       action */
 	opcode{0, 1, OpArgR, OpArgN, IABC /* */, "MOVE    ", move},        // R(A) := R(B) ---- Copy value from register B to register A.
 	opcode{0, 1, OpArgK, OpArgN, IABx /* */, "LOADK   ", loadK},       // R(A) := Kst(Bx) ---- Load constant value at the Bx index of the constants table to register A.
-	opcode{0, 1, OpArgN, OpArgN, IABx /* */, "LOADKX  ", loadKx},      // R(A) := Kst(extra arg)---- Load constant value at the Ax index of the constants table to register A. Ax is in the EXTRAARG instuction.LOADKX instuction always followed by EXTRAARG instuction. R(A) := Kst(extra arg)
-	opcode{0, 0, OpArgU, OpArgU, IAx /*  */, "EXTRAARG", nil},         // extra (larger) argument for previous opcode ----For example, LOADKX is followed by EXTRAARG. LOADKX use Ax in EXTRAARG to load constant value at the Ax index of the constants table.
 	opcode{0, 1, OpArgU, OpArgU, IABC /* */, "LOADBOOL", loadBool},    // R(A) := (bool)B; if (C) pc++  ---- Assign one bool value to A register. If B is not 0 ,then bool is true. Otherwise, bool is false.
 	opcode{0, 1, OpArgU, OpArgN, IABC /* */, "LOADNIL ", loadNil},     // R(A), R(A+1), ..., R(A+B) := nil ---- 1. push nil into the top of stack.	2. copy nil at the top of stack into a, a+1, ... ,a+b registers	3. pop nil from the top of stack.
 	opcode{0, 1, OpArgR, OpArgK, IABC /* */, "GETTABLE", getTable},    // R(A) := R(B)[RK(C)] ---- Get index from c register or constant.And then get the value from table by the index.Assign the value to A regster.

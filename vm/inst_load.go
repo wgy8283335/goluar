@@ -46,19 +46,3 @@ func loadK(i Instruction, vm LuaVM) {
 	vm.GetConst(bx) // Get contant from the contants table by bx index, and push the value into the stack.
 	vm.Replace(a)   // Pop value from the stack and assign to A register.
 }
-
-/*
-	@decription
-		Load Load constant value at the Ax index of the constants table to register A.
-		Ax is in the EXTRAARG instuction.
-		LOADKX instuction always followed by EXTRAARG instuction.
-		R(A) := Kst(extra arg)
-*/
-func loadKx(i Instruction, vm LuaVM) {
-	a, _ := i.ABx()
-	a += 1
-	ax := Instruction(vm.Fetch()).Ax() //Get ax value by fetch EXTRAARG instuction.
-	//vm.CheckStack(1)
-	vm.GetConst(ax) // Get contant from the contants table by ax index, and push the value into the stack.
-	vm.Replace(a)   // Pop value from the stack and assign to A register.
-}

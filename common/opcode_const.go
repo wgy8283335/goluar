@@ -6,7 +6,7 @@ const (
 	IABC  = iota // [  B:9  ][  C:9  ][ A:8  ][OP:6]
 	IABx         // [      Bx:18     ][ A:8  ][OP:6]
 	IAsBx        // [     sBx:18     ][ A:8  ][OP:6]
-	IAx          // [           Ax:26        ][OP:6]
+	// IAx          // [           Ax:26        ][OP:6] //need to remove??
 )
 
 /* OpArgMask */
@@ -21,7 +21,6 @@ const (
 const (
 	OP_MOVE = iota
 	OP_LOADK
-	OP_LOADKX
 	OP_LOADBOOL
 	OP_LOADNIL
 	OP_GETUPVAL
@@ -65,5 +64,4 @@ const (
 	OP_SETLIST
 	OP_CLOSURE
 	OP_VARARG
-	OP_EXTRAARG
 )
