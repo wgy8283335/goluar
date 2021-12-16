@@ -464,7 +464,6 @@ func (self *funcInfo) emitLoadBool(line, a, b, c int) {
 // r[a] = kst[bx]
 func (self *funcInfo) emitLoadK(line, a int, k interface{}) {
 	idx := self.indexOfConstant(k)
-	//todo: compare with lcode.c
 	self.emitABx(line, OP_LOADK, a, idx)
 }
 
