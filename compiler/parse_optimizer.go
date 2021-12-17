@@ -141,20 +141,6 @@ func optimizeNot(exp *UnopExp) Exp {
 	}
 }
 
-// Compute '~' in the expression.
-func optimizeBnot(exp *UnopExp) Exp {
-	switch x := exp.Exp.(type) {
-	case *IntegerExp:
-		x.Val = ^x.Val
-		return x
-	case *FloatExp:
-		if i, ok := FloatToInteger(x.Val); ok {
-			return &IntegerExp{x.Line, ^i}
-		}
-	}
-	return exp
-}
-
 // Compute logical 'or' in the expression.
 func optimizeLogicalOr(exp *BinopExp) Exp {
 	if isTrue(exp.Exp1) {

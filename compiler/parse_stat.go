@@ -10,8 +10,6 @@ var statEmpty = &EmptyStat{}
 		Describe syntax in EBNF:
 		stat ::=  ‘;’
 			| break
-			| ‘::’ Name ‘::’
-			| goto Name
 			| do block end
 			| while exp do block end
 			| repeat block until exp

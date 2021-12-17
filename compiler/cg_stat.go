@@ -28,8 +28,6 @@ func cgStat(fi *funcInfo, node Stat) {
 		cgLocalVarDeclStat(fi, stat)
 	case *LocalFuncDefStat:
 		cgLocalFuncDefStat(fi, stat)
-	case *LabelStat, *GotoStat:
-		panic("label and goto statements are not supported!")
 	}
 }
 
@@ -210,7 +208,7 @@ func cgForInStat(fi *funcInfo, node *ForInStat) {
 
 	line := lineOf(node.ExpList[0])
 	rGenerator := fi.slotOfLocVar(forGeneratorVar)
-	fi.emitTForCall(line, rGenerator, len(node.NameList))
+	//fi.emitTForCall(line, rGenerator, len(node.NameList))
 	fi.emitTForLoop(line, rGenerator+2, pcJmpToTFC-fi.pc()-1)
 
 	fi.exitScope(fi.pc() - 1)
@@ -342,13 +340,13 @@ func cgAssignStat(fi *funcInfo, node *AssignStat) {
 					fi.emitSetTable(lastLine, a, kRegs[i], vRegs[i])
 				}
 			} else { // global var
-				a := fi.indexOfUpval("_ENV")
-				if kRegs[i] < 0 {
-					b := 0x100 + fi.indexOfConstant(varName)
-					fi.emitSetTabUp(lastLine, a, b, vRegs[i])
-				} else {
-					fi.emitSetTabUp(lastLine, a, kRegs[i], vRegs[i])
-				}
+				//a := fi.indexOfUpval("_ENV")
+				// if kRegs[i] < 0 {
+				// 	b := 0x100 + fi.indexOfConstant(varName)
+				// 	fi.emitSetTabUp(lastLine, a, b, vRegs[i])
+				// } else {
+				// 	fi.emitSetTabUp(lastLine, a, kRegs[i], vRegs[i])
+				// }
 			}
 		} else {
 			fi.emitSetTable(lastLine, tRegs[i], kRegs[i], vRegs[i])

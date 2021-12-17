@@ -9,9 +9,7 @@ package compiler
 	stat ::=  ‘;’
 		| varlist ‘=’ explist
 		| functioncall
-		| label
 		| break
-		| goto Name
 		| do block end
 		| while exp do block end
 		| repeat block until exp
@@ -35,16 +33,6 @@ type EmptyStat struct{}
 	break
 */
 type BreakStat struct{ Line int }
-
-/*
-	‘::’ Name ‘::’
-*/
-type LabelStat struct{ Name string }
-
-/*
-	goto Name
-*/
-type GotoStat struct{ Name string }
 
 /*
 	do block end

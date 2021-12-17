@@ -97,6 +97,9 @@ type FuncProto struct {
 	MaxStackSize byte
 	Instructions []uint32
 	Constants    []interface{}
+	LineInfo     []uint32
+	LocVars      []LocVar
+	UpvalueNames []string
 	Protos       []*FuncProto
 }
 
@@ -260,18 +263,48 @@ func (self *loader) readProto(parentSource string) *FuncProto {
 	if source == "" {
 		source = parentSource
 	}
+	tmpStartLine := self.readUint32()
+	tmpEndLine := self.readUint32()
+	tmpUpvalueCount := self.readByte()
+	tmpNumParams := self.readByte()
+	tmpIsVararg := self.readByte()
+	tmpMaxStackSize := self.readByte()
+	tmpInstructions := self.readInstructions()
+	tmpConstants := self.readConstants()
+	tmpProtos := self.readProtos(source)
+	tmpLineInfo := self.readLineInfo()
+	tmpLocVars := self.readLocVars()
+	tmpUpvalueNames := self.readUpvalueNames()
 	return &FuncProto{
 		Source:       source,
-		StartLine:    self.readUint32(),
-		EndLine:      self.readUint32(),
-		UpvalueCount: self.readByte(),
-		NumParams:    self.readByte(),
-		IsVararg:     self.readByte(),
-		MaxStackSize: self.readByte(),
-		Instructions: self.readInstructions(),
-		Constants:    self.readConstants(),
-		Protos:       self.readProtos(source),
+		StartLine:    tmpStartLine,
+		EndLine:      tmpEndLine,
+		UpvalueCount: tmpUpvalueCount,
+		NumParams:    tmpNumParams,
+		IsVararg:     tmpIsVararg,
+		MaxStackSize: tmpMaxStackSize,
+		Instructions: tmpInstructions,
+		Constants:    tmpConstants,
+		LineInfo:     tmpLineInfo,
+		LocVars:      tmpLocVars,
+		UpvalueNames: tmpUpvalueNames,
+		Protos:       tmpProtos,
 	}
+	// return &FuncProto{
+	// 	Source:       source,
+	// 	StartLine:    self.readUint32(),
+	// 	EndLine:      self.readUint32(),
+	// 	UpvalueCount: self.readByte(),
+	// 	NumParams:    self.readByte(),
+	// 	IsVararg:     self.readByte(),
+	// 	MaxStackSize: self.readByte(),
+	// 	Instructions: self.readInstructions(),
+	// 	Constants:    self.readConstants(),
+	// 	LineInfo:     self.readLineInfo(),
+	// 	LocVars:      self.readLocVars(),
+	// 	UpvalueNames: self.readUpvalueNames(),
+	// 	// Protos:       self.readProtos(source),
+	// }
 }
 
 /*
@@ -388,4 +421,41 @@ func (self *loader) readProtos(parentSource string) []*FuncProto {
 		protos[i] = self.readProto(parentSource)
 	}
 	return protos
+}
+
+/*
+	Return n byte from data.
+*/
+func (self *loader) readLineInfo() []uint32 {
+	lineInfo := make([]uint32, self.readUint32())
+	for i := range lineInfo {
+		lineInfo[i] = self.readUint32()
+	}
+	return lineInfo
+}
+
+/*
+	Return n byte from data.
+*/
+func (self *loader) readLocVars() []LocVar {
+	locVars := make([]LocVar, self.readUint32())
+	for i := range locVars {
+		locVars[i] = LocVar{
+			VarName: self.readString(),
+			StartPC: self.readUint32(),
+			EndPC:   self.readUint32(),
+		}
+	}
+	return locVars
+}
+
+/*
+	Return n byte from data.
+*/
+func (self *loader) readUpvalueNames() []string {
+	names := make([]string, self.readUint32())
+	for i := range names {
+		names[i] = self.readString()
+	}
+	return names
 }

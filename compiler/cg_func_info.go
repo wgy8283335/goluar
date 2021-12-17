@@ -508,16 +508,6 @@ func (self *funcInfo) emitSetUpval(line, a, b int) {
 	self.emitABC(line, OP_SETUPVAL, a, b, 0)
 }
 
-// r[a] = upval[b][rk(c)]
-func (self *funcInfo) emitGetTabUp(line, a, b, c int) {
-	self.emitABC(line, OP_GETTABUP, a, b, c)
-}
-
-// upval[a][rk(b)] = rk(c)
-func (self *funcInfo) emitSetTabUp(line, a, b, c int) {
-	self.emitABC(line, OP_SETTABUP, a, b, c)
-}
-
 // r[a], ..., r[a+c-2] = r[a](r[a+1], ..., r[a+b-1])
 func (self *funcInfo) emitCall(line, a, nArgs, nRet int) {
 	self.emitABC(line, OP_CALL, a, nArgs+1, nRet+1)
@@ -562,10 +552,6 @@ func (self *funcInfo) emitForPrep(line, a, sBx int) int {
 func (self *funcInfo) emitForLoop(line, a, sBx int) int {
 	self.emitAsBx(line, OP_FORLOOP, a, sBx)
 	return len(self.insts) - 1
-}
-
-func (self *funcInfo) emitTForCall(line, a, c int) {
-	self.emitABC(line, OP_TFORCALL, a, 0, c)
 }
 
 func (self *funcInfo) emitTForLoop(line, a, sBx int) {

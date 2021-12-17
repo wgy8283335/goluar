@@ -50,22 +50,6 @@ func vararg(i Instruction, vm LuaVM) {
 }
 
 /*
-	@description
-		R(A+3), ... ,R(A+2+C) := R(A)(R(A+1), R(A+2));
-*/
-func tForCall(i Instruction, vm LuaVM) {
-	a, _, c := i.ABC()
-	a += 1
-	//Push function and arguments to the top of the current stack.
-	_pushFuncAndArgs(a, 3, vm)
-	//Call function. c stands the number of result values. 2 means two arguments. the value of c is 2.
-	vm.Call(2, c)
-	//Pop the c results and assign to the registers in the current stack from a+3. the value of c is 2.
-	//in _popResults(),the actually number of results will be c+1-1,
-	_popResults(a+3, c+1, vm)
-}
-
-/*
 	Reuse the stack of caller function
 	return R(A)(R(A+1), ... ,R(A+B-1))
 */

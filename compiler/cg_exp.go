@@ -206,7 +206,7 @@ func cgTableAccessExp(fi *funcInfo, node *TableAccessExp, a int) {
 	fi.usedRegs = oldRegs
 
 	if kindB == ARG_UPVAL {
-		fi.emitGetTabUp(node.LastLine, a, b, c)
+		//fi.emitGetTabUp(node.LastLine, a, b, c)
 	} else {
 		fi.emitGetTable(node.LastLine, a, b, c)
 	}

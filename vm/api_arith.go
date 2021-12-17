@@ -13,26 +13,18 @@ type operator struct {
 }
 
 var (
-	iadd  = func(a, b int64) int64 { return a + b }
-	fadd  = func(a, b float64) float64 { return a + b }
-	isub  = func(a, b int64) int64 { return a - b }
-	fsub  = func(a, b float64) float64 { return a - b }
-	imul  = func(a, b int64) int64 { return a * b }
-	fmul  = func(a, b float64) float64 { return a * b }
-	imod  = IMod
-	fmod  = FMod
-	pow   = math.Pow
-	div   = func(a, b float64) float64 { return a / b }
-	iidiv = IFloorDiv
-	fidiv = FFloorDiv
-	band  = func(a, b int64) int64 { return a & b }
-	bor   = func(a, b int64) int64 { return a | b }
-	bxor  = func(a, b int64) int64 { return a ^ b }
-	shl   = ShiftLeft
-	shr   = ShiftRight
-	iunm  = func(a, _ int64) int64 { return -a }
-	funm  = func(a, _ float64) float64 { return -a }
-	bnot  = func(a, _ int64) int64 { return ^a }
+	iadd = func(a, b int64) int64 { return a + b }
+	fadd = func(a, b float64) float64 { return a + b }
+	isub = func(a, b int64) int64 { return a - b }
+	fsub = func(a, b float64) float64 { return a - b }
+	imul = func(a, b int64) int64 { return a * b }
+	fmul = func(a, b float64) float64 { return a * b }
+	imod = IMod
+	fmod = FMod
+	pow  = math.Pow
+	div  = func(a, b float64) float64 { return a / b }
+	iunm = func(a, _ int64) int64 { return -a }
+	funm = func(a, _ float64) float64 { return -a }
 )
 
 var operators = []operator{
@@ -42,14 +34,7 @@ var operators = []operator{
 	operator{"__mod", imod, fmod},
 	operator{"__pow", nil, pow},
 	operator{"__div", nil, div},
-	operator{"__idiv", iidiv, fidiv},
-	operator{"__band", band, nil},
-	operator{"__bor", bor, nil},
-	operator{"__bxor", bxor, nil},
-	operator{"__shl", shl, nil},
-	operator{"__shr", shr, nil},
 	operator{"__unm", iunm, funm},
-	operator{"__bnot", bnot, nil},
 }
 
 // [-(2|1), +1, e]
@@ -57,7 +42,7 @@ var operators = []operator{
 func (self *luaState) Arith(op ArithOp) {
 	var a, b luaValue // operands
 	b = self.stack.pop()
-	if op != LUA_OPUNM && op != LUA_OPBNOT {
+	if op != LUA_OPUNM {
 		a = self.stack.pop()
 	} else {
 		a = b
@@ -86,7 +71,7 @@ func _arith(a, b luaValue, op operator) luaValue {
 			}
 		}
 	} else { // arith
-		if op.integerFunc != nil { // add,sub,mul,mod,idiv,unm
+		if op.integerFunc != nil { // add,sub,mul,mod,unm
 			if x, ok := a.(int64); ok {
 				if y, ok := b.(int64); ok {
 					return op.integerFunc(x, y)

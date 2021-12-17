@@ -47,9 +47,9 @@ var opcodes = []opcode{
 	opcode{0, 1, OpArgU, OpArgN, IABC /* */, "VARARG  ", vararg},      // R(A), R(A+1), ..., R(A+B-2) = vararg ---- Load arguments to the top of the stack, and pop the results and assign to the registers from A to A+B-2 in the current stack.
 	opcode{0, 0, OpArgU, OpArgU, IABC /* */, "SETLIST ", setList},     // R(A)[(C-1)*FPF+i] := R(A+i), 1 <= i <= B ---- Set list. The list is the array in the table.Put values in registers from R(A+i) to array pointed by R(A),1 <= i <= B
 	opcode{0, 1, OpArgU, OpArgN, IABC /* */, "GETUPVAL", getUpval},    // R(A) := UpValue[B] ---- Get upvalue from upvalue array by index pointed by B. Upvalue array is stored in the bottom of the stack. The stack contains: function stack, register, upvalue.
-	opcode{0, 1, OpArgU, OpArgK, IABC /* */, "GETTABUP", getTabUp},    // R(A) := UpValue[B][RK(C)] ---- Get upvalue from register B, the upvalue's type is table, and then get value from the table by keyRK(C). Assign the value to R(A).
-	opcode{0, 0, OpArgK, OpArgK, IABC /* */, "SETTABUP", setTabUp},    // UpValue[A][RK(B)] := RK(C) ---- Get RK(b) as key. Get RK(C) as value. Put the key and value in the table pointed UpValue[A].
-	opcode{0, 0, OpArgU, OpArgN, IABC /* */, "SETUPVAL", setUpval},    // UpValue[B] := R(A) ---- Assign value in the register A to upvalue pointed by B in the upvalue array.
+	//opcode{0, 1, OpArgU, OpArgK, IABC /* */, "GETTABUP", getTabUp},    // R(A) := UpValue[B][RK(C)] ---- Get upvalue from register B, the upvalue's type is table, and then get value from the table by keyRK(C). Assign the value to R(A).
+	//opcode{0, 0, OpArgK, OpArgK, IABC /* */, "SETTABUP", setTabUp},    // UpValue[A][RK(B)] := RK(C) ---- Get RK(b) as key. Get RK(C) as value. Put the key and value in the table pointed UpValue[A].
+	opcode{0, 0, OpArgU, OpArgN, IABC /* */, "SETUPVAL", setUpval}, // UpValue[B] := R(A) ---- Assign value in the register A to upvalue pointed by B in the upvalue array.
 	// for i = 1,5,20 do f() end
 	// 1	LOADK		0	-1
 	// 2	LOADK		1	-2
@@ -129,5 +129,5 @@ var opcodes = []opcode{
 	// 		----------------		|			----------------
 	// 	A	(generator/next):f	   =|			(generator/next):f
 	// 		----------------					----------------
-	opcode{0, 0, OpArgN, OpArgU, IABC /* */, "TFORCALL", tForCall}, // R(A+3), ... ,R(A+2+C) := R(A)(R(A+1), R(A+2));
+	//opcode{0, 0, OpArgN, OpArgU, IABC /* */, "TFORCALL", tForCall}, // R(A+3), ... ,R(A+2+C) := R(A)(R(A+1), R(A+2));
 }
