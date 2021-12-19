@@ -290,21 +290,6 @@ func (self *loader) readProto(parentSource string) *FuncProto {
 		UpvalueNames: tmpUpvalueNames,
 		Protos:       tmpProtos,
 	}
-	// return &FuncProto{
-	// 	Source:       source,
-	// 	StartLine:    self.readUint32(),
-	// 	EndLine:      self.readUint32(),
-	// 	UpvalueCount: self.readByte(),
-	// 	NumParams:    self.readByte(),
-	// 	IsVararg:     self.readByte(),
-	// 	MaxStackSize: self.readByte(),
-	// 	Instructions: self.readInstructions(),
-	// 	Constants:    self.readConstants(),
-	// 	LineInfo:     self.readLineInfo(),
-	// 	LocVars:      self.readLocVars(),
-	// 	UpvalueNames: self.readUpvalueNames(),
-	// 	// Protos:       self.readProtos(source),
-	// }
 }
 
 /*

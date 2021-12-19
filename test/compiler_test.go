@@ -7,7 +7,7 @@ import (
 )
 
 func TestCompiler(t *testing.T) {
-	chunkName := "lua/hello.lua"
+	chunkName := "lua/list_summary.lua"
 	data, err := ioutil.ReadFile(chunkName)
 	if err != nil {
 		panic(err)
